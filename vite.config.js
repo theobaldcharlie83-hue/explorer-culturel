@@ -15,6 +15,7 @@ export default defineConfig({
         description: 'Découvrez les activités culturelles autour de vous',
         theme_color: '#5b4cf5',
         background_color: '#f2f4ff',
+        lang: 'fr',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/explorer-culturel/',
@@ -27,6 +28,8 @@ export default defineConfig({
         ]
       },
       workbox: {
+        navigateFallback: 'index.html',
+        navigateFallbackAllowlist: [/^\/explorer-culturel\//],
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
           {
