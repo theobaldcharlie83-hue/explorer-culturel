@@ -57,6 +57,7 @@ export async function fetchActivities(lat, lng, radiusKm, categories) {
         distance: haversine(lat, lng, elLat, elLng),
         openingHours: el.tags.opening_hours || null,
         website: el.tags.website || el.tags['contact:website'] || null,
+        rating: el.tags.stars ? Number(el.tags.stars) : (el.tags.rating ? parseFloat(el.tags.rating) : null),
         lat: elLat, lng: elLng,
       }
     })

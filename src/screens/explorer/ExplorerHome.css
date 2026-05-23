@@ -102,6 +102,19 @@
 }
 .btn-favs:hover { border-color: #f43030; background: #ffecec; }
 
+/* ── Version note ── */
+.home__version {
+  position: fixed;
+  bottom: max(8px, env(safe-area-inset-bottom));
+  right: 16px;
+  font-size: .6rem;
+  color: rgba(176, 176, 200, .75);
+  font-weight: 500;
+  letter-spacing: .04em;
+  pointer-events: none;
+  z-index: 10;
+}
+
 /* ── Spinners ── */
 .spin    { display: inline-block; width: 22px; height: 22px; border: 2px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:50%; animation: sp .7s linear infinite; }
 .spin-sm { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(91,76,245,.2); border-top-color:#5b4cf5; border-radius:50%; animation: sp .7s linear infinite; }

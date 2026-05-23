@@ -124,6 +124,8 @@ export default function ExplorerHome() {
           </button>
         )}
       </footer>
+
+      <div className="home__version">v1 · Lucas V.</div>
     </div>
   )
 }

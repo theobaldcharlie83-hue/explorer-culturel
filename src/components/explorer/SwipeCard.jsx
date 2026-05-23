@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { CATEGORIES } from '../../store/useExplorerStore'
+import { fetchPlaceImage } from '../../services/imageService'
 import './SwipeCard.css'
 
 const THRESHOLD = 90
@@ -8,8 +9,19 @@ export default function SwipeCard({ activity, stackIndex, isTop, onSwipeLeft, on
   const [offset, setOffset]     = useState(0)
   const [isDragging, setIsDrag] = useState(false)
   const [exitDir, setExitDir]   = useState(null)
+  const [imageUrl, setImageUrl] = useState(null)
   const startX = useRef(0)
   const config = CATEGORIES[activity.category] || CATEGORIES.museum
+
+  useEffect(() => {
+    if (stackIndex > 2) return
+    let cancelled = false
+    setImageUrl(null)
+    fetchPlaceImage(activity.name).then(url => {
+      if (!cancelled) setImageUrl(url)
+    })
+    return () => { cancelled = true }
+  }, [activity.id, stackIndex])
 
   const startDrag = (x) => { if (!isTop || exitDir) return; startX.current = x; setIsDrag(true) }
   const moveDrag  = (x) => { if (!isDragging) return; setOffset(x - startX.current) }
@@ -66,9 +78,25 @@ export default function SwipeCard({ activity, stackIndex, isTop, onSwipeLeft, on
         </>
       )}
 
-      <div className="sc__hero" style={{ background: config.gradient }}>
-        <span className="sc__emoji" role="img" aria-hidden="true">{config.emoji}</span>
+      <div className="sc__hero" style={!imageUrl ? { background: config.gradient } : {}}>
+        {imageUrl && (
+          <>
+            <img
+              className="sc__hero-img"
+              src={imageUrl}
+              alt={activity.name}
+              onError={() => setImageUrl(null)}
+            />
+            <div className="sc__hero-overlay" />
+          </>
+        )}
+        {!imageUrl && (
+          <span className="sc__emoji" role="img" aria-hidden="true">{config.emoji}</span>
+        )}
         <span className="sc__cat">{config.label}</span>
+        {activity.rating != null && (
+          <span className="sc__rating">⭐ {activity.rating}</span>
+        )}
       </div>
 
       <div className="sc__body">
