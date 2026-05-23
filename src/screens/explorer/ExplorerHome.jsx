@@ -62,7 +62,7 @@ export default function ExplorerHome() {
     }
   }
 
-  const fillPct = `${((radius - 0.5) / 4.5) * 100}%`
+  const fillPct = `${((radius - 0.5) / 19.5) * 100}%`
 
   return (
     <div className="home">
@@ -94,10 +94,10 @@ export default function ExplorerHome() {
         {/* Rayon */}
         <div className="field">
           <label className="field__label">Rayon : <strong>{radius} km</strong></label>
-          <input className="field__slider" type="range" min="0.5" max="5" step="0.5" value={radius}
+          <input className="field__slider" type="range" min="0.5" max="20" step="0.5" value={radius}
             onChange={e => setRadius(parseFloat(e.target.value))}
             style={{ background: `linear-gradient(to right,#5b4cf5 ${fillPct},#e2e4f2 ${fillPct})` }} />
-          <div className="field__slider-labels"><span>0.5 km</span><span>5 km</span></div>
+          <div className="field__slider-labels"><span>0.5 km</span><span>20 km</span></div>
         </div>
 
         {/* Catégories */}
